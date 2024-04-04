@@ -91,7 +91,7 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 > > and **isCameraEnabled** both are true then **Real Face Checking** procedure will be executed during face
 > > capture.
 >
-> Any block started with ```withDocumentType(DocumentType type)``` should be completed with a ```.complete()``` call.
+> Each block started with ```withDocumentType(DocumentType type)``` should be completed with a ```.complete()``` call.
 > If no ```withDocumentType()``` blocks are specified then all document types with all steps are used by default.
 
 #### Example of capture pipeline configuration:
@@ -170,7 +170,7 @@ verificationConfig.isAddressCheckEnabled = true;
 ```CaptureConfig``` and ```VerificationConfig``` are used in ```DvsConfig.Builder``` for configuration DvsFragment
 object. ```DvsConfig.Builder``` accepts the required **Authorization Token**, **VerificationConfig** and
 **CaptureConfig** parameters and provides additional methods for configuration DIVE fragment. Authenticating requests 
-to the ***DIVE API** is done using the public key/secret key as a Bearer token in the Authorization Header. This 
+to the **DIVE API** is done using the public key/secret key as a Bearer token in the Authorization Header. This 
 key should be defined by **authorizationToken** parameter.
 ```
 DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig)
@@ -818,7 +818,7 @@ You can redefine this styles in custom theme or use it in your application theme
 | Border Color    | ?colorPrimary        | @null                | @null                |
 
 &nbsp;
-#### Capture Screen
+#### Loading Screen
 
 ---
 ![Loading Screen](./doc/img_loading_screen.png)
