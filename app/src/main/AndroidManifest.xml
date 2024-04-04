@@ -10,7 +10,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.DVS"
+            android:theme="@style/Theme.DVSTest"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -32,5 +32,5 @@ android {
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
-    implementation("net.idscan.components.android:dvs:1.2.3")
+    implementation("net.idscan.components.android:dvs:1.4.0")
 }
