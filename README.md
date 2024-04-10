@@ -30,11 +30,11 @@
 
 ## Using
 
-### Configuration of Capture Pipeline 
+### Configuration of the Capture Pipeline 
 
 ---
-For configuration the capture pipeline you need to create ```CaptureConfig``` object using a **builder**.
-It accepts the required **LICENSE KEY** and provides additional methods for configuration the pipeline.
+For configuration of the capture pipeline you need to create a ```CaptureConfig``` object using **builder**.
+It accepts required **LICENSE KEY** and provides additional methods for configuration of the pipeline.
 **Note** that you need to replace **LICENSE KEY** by your License Key.
 ```
 CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
@@ -57,7 +57,7 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 > Default value is **False**.
 
 > ##### withDocumentType(DocumentType type)
-> Allows you to configure capture pipeline for a specific type of document.
+> Allows you to configure a capture pipeline for a specific type of document.
 >
 > **Supported types:** 
 > * *DocumentType.DriverLicense*
@@ -70,31 +70,31 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 > a capture pipeline for a specific type of document:
 > > ##### DocumentFlowConfig.withFront(boolean isUploadEnabled, boolean isCameraEnabled)
 > > 
-> > Allows you to configure the rules for capturing the **front side** of the document. If **isUploadEnabled**
-> > is true then the user will be able to upload the image of the front side from a file. If **isCameraEnabled** is 
-> > true then the user will be able to use camera for capturing the front side of the document. If **isUploadEnabled**
-> > and **isCameraEnabled** both are false then the **front side** step will be skipped.
+> > Allows you to configure rules for capturing the **front side** of the document. If **isUploadEnabled**
+> > is true then a user will be able to upload an image of the front side from a file. If **isCameraEnabled** is 
+> > true then a user will be able to use a camera for capturing the front side of the document. If **isUploadEnabled**
+> > and **isCameraEnabled** both are false then the **front side** step is skipped.
 > 
 > > ##### DocumentFlowConfig.withBack(boolean isUploadEnabled, boolean isCameraEnabled)
 > >
-> > Allows you to configure the rules for capturing the **back side** of the document. If **isUploadEnabled**
-> > is true then the user will be able to upload the image of back side from a file. If **isCameraEnabled** is
-> > true then the user will be able to use camera for capturing the back side of the document. If **isUploadEnabled**
-> > and **isCameraEnabled** both are false then the **back side** step will be skipped.
+> > Allows you to configure rules for capturing the **back side** of the document. If **isUploadEnabled**
+> > is true then a user is able to upload an image of the back side from a file. If **isCameraEnabled** is
+> > true then a user is able to use a camera for capturing the back side of the document. If **isUploadEnabled**
+> > and **isCameraEnabled** both are false then the **back side** step is skipped.
 >
 > > ##### DocumentFlowConfig withFace(boolean isUploadEnabled, boolean isCameraEnabled, boolean checkRealFace)
 > >
-> > Allows you to configure the rules for capturing the **face**. If **isUploadEnabled**
-> > is true then the user will be able to upload the image of face from a file. If **isCameraEnabled** is
-> > true then the user will be able to use camera for capturing the face. If **isUploadEnabled**
-> > and **isCameraEnabled** both are false then the **face capturing** step will be skipped. If **checkRealFace**
-> > and **isCameraEnabled** both are true then **Real Face Checking** procedure will be executed during face
+> > Allows you to configure rules for capturing **face**. If **isUploadEnabled**
+> > is true then a user is able to upload an image of the face from a file. If **isCameraEnabled** is
+> > true then a user is able to use a camera for capturing the face. If **isUploadEnabled**
+> > and **isCameraEnabled** both are false then the **face capturing** step is skipped. If **checkRealFace**
+> > and **isCameraEnabled** both are true then the **Real Face Checking** procedure is executed during the face
 > > capture.
 >
-> Each block started with ```withDocumentType(DocumentType type)``` should be completed with a ```.complete()``` call.
-> If no ```withDocumentType()``` blocks are specified then all document types with all steps are used by default.
+> Each block that starts with ```withDocumentType(DocumentType type)``` should be completed with a ```.complete()``` call.
+> If there are no ```withDocumentType()``` blocks that are specified then all document types with all steps are used by default.
 
-#### Example of capture pipeline configuration:
+#### Example of the capture pipeline configuration:
 ```
 CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**")
     .withAutoContinue(true)
@@ -113,12 +113,12 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**")
 ```
 **Note** that each ```withDocumentType(...)``` block should be completed with a ```.complete()``` call.
 
-### Configuration of Verification Service
+### Configuration of the Verification Service
 
 ---
-For configuration of Verification Service you need to create a ```VerificationConfig``` object. It contains optional
-fields that you can use to override the verification options defined on portal. For undefined fields the portal
-settings will be applied.
+To configure the Verification Service you need to create a ```VerificationConfig``` object. It contains optional
+fields you can use to override the verification options defined on the portal. Portal
+settings will be applied for undefined fields.
 ```
 VerificationConfig verificationConfig = new VerificationConfig();
 verificationConfig.isOCREnabled = ...;
@@ -127,51 +127,51 @@ verificationConfig.faceVerification = ...;
 ```
 
 #### VerificationConfig fields:
-* ```isOCREnabled``` - a setting that enables processing the front image of a document using OCR technology
+* ```isOCREnabled``` - a setting that enables processing of the front image of a document using the OCR technology
 * ```isAddressCheckEnabled``` - a setting enabling the verification of the address found on the submitted 
 document by using a third party address verification web service
 * ```isCrossMatchRequired``` - this setting is making it a requirement that both the front and the back of 
 the document are able to be read successfully. When this setting is disabled a submission will be considered
 successful if either the front or the back of the document can be read
-* ```isDMVEnabled``` - a setting enabling the DMV check only to be run (when both sides of a document 
-can be processed successfully) verifying that the data on the Driver’s licenses, driving permits or ID 
+* ```isDMVEnabled``` - a setting enabling only the DMV check to be run (when both sides of a document 
+can be processed successfully) verifying that the data on the Driver licenses, driving permits or ID 
 cards matches the data held by the jurisdiction that issued the document
-* ```isDMVPartialEnabled``` - a setting for a case when only DMV check will be run after
+* ```isDMVPartialEnabled``` - a setting for a case when only a DMV check will be run after
 overriddenSettings.isCrossMatchRequired is set to false and only one side of a document can be processed successfully
-* ```isIdentiFraudEnabled``` - a setting for a case only Identifraud check will be run after
+* ```isIdentiFraudEnabled``` - a setting for a case when only Identifraud check will be run after
 overriddenSettings.isCrossMatchRequired is set to false and only one side of a document can be processed successfully
 * ```isIdentiFraudFullCaseEnabled``` - a setting enabling only the Identifraud check to be run when both sides 
 of a document can be processed successfully
 * ```isDmvOrIdentiFraudEnabled``` - this setting is used to configure that when both sides of a document can be 
-processed successfully a DMV check will be run where possible, if it is not possible then an Identifraud check
-will be run
-* ```isDmvAndIdentiFraudEnabled``` - both DMV and Identifraud checks will be run when both sides of a document
+processed successfully a DMV check is run where possible, if it is not possible then an Identifraud check
+is run
+* ```isDmvAndIdentiFraudEnabled``` - both DMV and Identifraud checks are run when both sides of a document
 can be processed successfully
-* ```isDmvOrIdentiFraudPartialEnabled``` - a DMV check will be run where possible, if it is not possible then 
-an Identifraud check will be run when overriddenSettings.isCrossMatchRequired is set to false and only one
+* ```isDmvOrIdentiFraudPartialEnabled``` - a DMV check is run where possible, if it is not possible then 
+an Identifraud check is run when overriddenSettings.isCrossMatchRequired is set to false and only one
 side of a document can be processed successfully
-* ```isDmvAndIdentiFraudPartialEnabled``` - both DMV and Identifraud checks will be run when
+* ```isDmvAndIdentiFraudPartialEnabled``` - both DMV and Identifraud checks are run when
 overriddenSettings.isCrossMatchRequired is set to false and only one side of a document can be processed successfully
-* ```isFaceRequiredOnDocument``` - this setting will make it optional to perform a face match if for some reason a 
+* ```isFaceRequiredOnDocument``` - this setting makes it optional to perform a face match if for some reason a 
 cropped image of the document owner's face from the front image of the document cannot be obtained
-* ```faceVerification``` - enables performing a face match between a submitted selfie and a cropped image of the
+* ```faceVerification``` - a setting that enables performing a face match between a submitted selfie and a cropped image of the
 document owner's face from the front image of the document
 
-#### Example of Verification Service configuration:
+#### Example of the Verification Service configuration:
 ```
 VerificationConfig verificationConfig = new VerificationConfig();
 verificationConfig.isOCREnabled = false;
 verificationConfig.isAddressCheckEnabled = true;
 ```
 
-### Configuration of DIVE Fragment
+### Configuration of the DIVE Fragment
 
 ---
-```CaptureConfig``` and ```VerificationConfig``` are used in ```DvsConfig.Builder``` for configuration DvsFragment
+```CaptureConfig``` and ```VerificationConfig``` are used in ```DvsConfig.Builder``` for configuration the DvsFragment
 object. ```DvsConfig.Builder``` accepts the required **Authorization Token**, **VerificationConfig** and
-**CaptureConfig** parameters and provides additional methods for configuration DIVE fragment. Authenticating requests 
-to the **DIVE API** is done using the public key/secret key as a Bearer token in the Authorization Header. This 
-key should be defined by **authorizationToken** parameter.
+**CaptureConfig** parameters and provides additional methods for configuration of the DIVE fragment. Authenticating requests 
+to the **DIVE API** are done using the public key/secret key as a Bearer token in the Authorization Header. This 
+key should be defined by the **authorizationToken** parameter.
 ```
 DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig)
     .withCustomUrl(...)
@@ -182,19 +182,19 @@ DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, veri
 #### Configuration Methods:
 
 > ##### DvsConfig.Builder.withCustomUserAgent(String userAgent)
-> Allows you to configure **user-agent** header in HTTP request.
+> Allows you to configure the **user-agent** header in an HTTP request.
 >
 > Default value is **Android**.
 
 > ##### DvsConfig.Builder.withCustomUrl(String url)
-> Allows you to redefine DIVA API endpoint.
+> Allows you to redefine a DIVE API endpoint.
 >
 > Default value is **https://dvs2.idware.net/api/v3**.
 
 ### Show DIVE fragment
 
 ---
-```DvsFragment.newInstance(config)``` accepts ```DvsConfig``` parameter and returns instance of DIVE fragment that can
+```DvsFragment.newInstance(config)``` accepts the ```DvsConfig``` parameter and returns the instance of DIVE fragment that can
 be used with android **[FragmentManager](https://developer.android.com/guide/fragments/fragmentmanager#java)** 
 in a typical way. 
 ```
@@ -212,7 +212,7 @@ getSupportFragmentManager()
 ### Processing result
 
 ---
-```DvsFragment``` provides an useful ```setFragmentResultListener``` method that allows you get result of verification in
+```DvsFragment``` provides a useful ```setFragmentResultListener``` method that allows you get the result of the verification in
 a convenient way.
 ```
 DvsFragment {
@@ -235,11 +235,11 @@ DvsFragment {
     } 
 }
 ```
-Under the hood ```setFragmentResultListener``` use
+Under the hood ```setFragmentResultListener``` uses
 [ Fragment Result API](https://developer.android.com/guide/fragments/communicate#fragment-result) 
-and accepts ```SuccessCallback``` and  ```ErrorCallback``` callbacks to process result of verification.
+and accepts ```SuccessCallback``` and  ```ErrorCallback``` callbacks to process the result of the verification.
 
-#### Example of using DIVE fragment:
+#### Example of using the DIVE fragment:
 ```
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -289,13 +289,13 @@ public class MainActivity extends AppCompatActivity {
 
 ## Customization
 
-UI representation of DIVE fragment is based on Material Design 2 and can be customized using a theme. DIVE SDK provides the
-base ```Theme.DVS``` theme that you can extend to customize the UI.
+UI representation of the DIVE fragment is based on the Material Design 2 and can be customized using a theme. The DIVE SDK provides a
+basic ```Theme.DVS``` theme that can be extended to customize the UI.
 
 ### Typography
 
 ---
-DIVE SDK typography is based on Material Design. 
+DIVE SDK typography is based on the Material Design. 
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -405,9 +405,9 @@ DIVE SDK typography is based on Material Design.
     </style>
 </resources>
 ```
-You can redefine this styles in custom theme or use it in your application theme.
+These styles can be redefined in the custom theme or it can be used in your application theme.
 
-#### Example of redefine text style
+#### Example of a redefined text style
 ```
 <resources xmlns:tools="http://schemas.android.com/tools">
     ...
@@ -429,7 +429,7 @@ You can redefine this styles in custom theme or use it in your application theme
 ### Shapes
 
 ---
-DIVE SDK shapes are based on Material Design.
+DIVE SDK shapes are based on the Material Design.
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -455,9 +455,9 @@ DIVE SDK shapes are based on Material Design.
     </style>
 </resources>
 ```
-You can redefine this styles in custom theme or use it in your application theme.
+These styles can be redefined in the custom theme or it can be used in your application theme.
 
-#### Example of redefine shapes
+#### Example of redefining shapes
 ```
 <resources xmlns:tools="http://schemas.android.com/tools">
     ...
@@ -478,10 +478,9 @@ You can redefine this styles in custom theme or use it in your application theme
 ### Colors
 
 ---
-DIVE SDK colors are based on Material Design colors. You can redefine it in custom theme to to adapt the user
-interface to your brand's colors.
+DIVE SDK colors are based on Material Design colors. You can redefine them in the custom theme to adapt the UI to your branding.
 
-#### Example of redefine colors
+#### Example of redefining colors
 ```
 <resources xmlns:tools="http://schemas.android.com/tools">
     ...
@@ -536,7 +535,7 @@ Style of DIVE SDK buttons is based on **Material Button** and **Outlined Materia
 ```
 You can redefine this styles in custom theme or use it in your application theme.
 
-#### Example of redefine style of buttons
+#### Example of redefining the style of buttons
 ```
 <resources xmlns:tools="http://schemas.android.com/tools">
     ...
@@ -566,7 +565,7 @@ You can redefine this styles in custom theme or use it in your application theme
 ### Dialogs
 
 ---
-Style of DIVE SDK Dialogs is based on **MaterialAlertDialog**
+The Style of the DIVE SDK Dialogs is based on **MaterialAlertDialog**
 ```
 <resources>
     <style name="Theme.DVS" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -655,9 +654,9 @@ Style of DIVE SDK Dialogs is based on **MaterialAlertDialog**
     </style>
 </resources>
 ```
-You can redefine this styles in custom theme or use it in your application theme.
+You can redefine these styles within the custom theme or use them in your application theme.
 
-#### Example of redefine style of Dialogs
+#### Example of redefining the style of Dialogs
 ```
 <resources xmlns:tools="http://schemas.android.com/tools">
     ...
@@ -695,7 +694,7 @@ You can redefine this styles in custom theme or use it in your application theme
 
 ### Anatomy of Views
 
-#### Select Document Type Screen
+#### Select the Document Type Screen
 
 ---
 ![Select Document Type](./doc/img_select_doc_type.png)
