@@ -47,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(systemUiVisibility);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        DvsTestFragment.setListener(getSupportFragmentManager(), this, this::showDvsFragment);
+        DvsTestFragment.setListener(
+                getSupportFragmentManager(),
+                this,
+                this::showDvsFragment
+        );
 
         DvsFragment.setFragmentResultListener(
                 getSupportFragmentManager(),
