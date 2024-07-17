@@ -90,17 +90,20 @@ public class DvsRequestFragment extends Fragment {
         EditText etAuthorization = view.findViewById(R.id.et_authorization);
         etAuthorization.setText(prefs.getString("request_authorization", DEFAULT_REQUEST_AUTHORIZATION_TOKEN));
 
-        ((EditText) view.findViewById(R.id.et_request_id)).setText(request.requestId);
+        EditText etRequest = view.findViewById(R.id.et_request_id);
+        etRequest.setText(request.requestId);
 
         ProgressBar progress = (ProgressBar) view.findViewById(R.id.pb_processing);
         Button btnRequest = (Button) view.findViewById(R.id.btn_request);
         btnRequest.setOnClickListener(v -> {
             String authorizationToken = etAuthorization.getText().toString();
+            String requestId = etRequest.getText().toString();
+
             if (!isProcessing) {
                 isProcessing = true;
                 btnRequest.setEnabled(false);
                 progress.setVisibility(View.VISIBLE);
-                executor.submit(() -> makeCall(authorizationToken, request));
+                executor.submit(() -> makeCall(authorizationToken, new VerificationRequest(requestId)));
 
                 prefs.edit()
                         .putString("request_authorization", authorizationToken)
