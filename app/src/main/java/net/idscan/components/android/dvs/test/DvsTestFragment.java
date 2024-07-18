@@ -78,7 +78,6 @@ public class DvsTestFragment extends Fragment {
             boolean isManualEnabled = ((CheckBox)view.findViewById(R.id.cb_manual)).isChecked();
             boolean isCameraEnabled = ((CheckBox)view.findViewById(R.id.cb_camera)).isChecked();
             boolean isHintEnabled = ((CheckBox)view.findViewById(R.id.cb_enable_hints)).isChecked();
-            boolean isAutoContinueEnabled = ((CheckBox)view.findViewById(R.id.cb_auto_continue)).isChecked();
 
             ArrayList<DocumentType> documentTypes = new ArrayList<>();
             if(((CheckBox)view.findViewById(R.id.cb_driver_license)).isChecked()) {
@@ -114,7 +113,6 @@ public class DvsTestFragment extends Fragment {
 
             CaptureConfig captureConfig = configBuilder
                     .withHints(isHintEnabled)
-                    .withAutoContinue(isAutoContinueEnabled)
                     .build();
 
             VerificationConfig verificationConfig = new VerificationConfig();

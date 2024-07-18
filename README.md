@@ -23,7 +23,7 @@
     ```
     dependencies {
         ...
-        implementation("net.idscan.components.android:dvs:1.5.0")
+        implementation("net.idscan.components.android:dvs:1.5.1")
         ...
     }
     ```
@@ -45,11 +45,6 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 ```
 
 #### Configuration Methods:
-
-> ##### withAutoContinue(boolean enabled)
-> Allows you to enable or disable auto continue after each capture step.
-> 
-> Default value is **True**.
 
 > ##### withHints(boolean enabled)
 > Allows you to enable or disable animated hints before each capture step.
@@ -97,7 +92,6 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 #### Example of the capture pipeline configuration:
 ```
 CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**")
-    .withAutoContinue(true)
     .withHints(true)
     .withDocumentType(DocumentType.DriverLicense)
         .withBack(true, true)
