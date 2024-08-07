@@ -23,7 +23,7 @@
     ```
     dependencies {
         ...
-        implementation("net.idscan.components.android:dvs:1.4.0")
+        implementation("net.idscan.components.android:dvs:1.5.1")
         ...
     }
     ```
@@ -45,11 +45,6 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 ```
 
 #### Configuration Methods:
-
-> ##### withAutoContinue(boolean enabled)
-> Allows you to enable or disable auto continue after each capture step.
-> 
-> Default value is **True**.
 
 > ##### withHints(boolean enabled)
 > Allows you to enable or disable animated hints before each capture step.
@@ -97,7 +92,6 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 #### Example of the capture pipeline configuration:
 ```
 CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**")
-    .withAutoContinue(true)
     .withHints(true)
     .withDocumentType(DocumentType.DriverLicense)
         .withBack(true, true)
@@ -164,16 +158,26 @@ verificationConfig.isOCREnabled = false;
 verificationConfig.isAddressCheckEnabled = true;
 ```
 
+### Configuration of the Verification mode
+
+---
+There are two options of how your application can get the verification result:
+* ```VerificationMode.Local``` - in this mode the verification result is processed directly by your application.
+* ```VerificationMode.Server``` - in this mode the application just create a request for the verification 
+and get back a request key that can be passed to the 3rd party server. In this case the 3rd 
+party server is responsible for requesting the verification result.
+
+
 ### Configuration of the DIVE Fragment
 
 ---
 ```CaptureConfig``` and ```VerificationConfig``` are used in ```DvsConfig.Builder``` for configuration the DvsFragment
-object. ```DvsConfig.Builder``` accepts the required **Authorization Token**, **VerificationConfig** and
-**CaptureConfig** parameters and provides additional methods for configuration of the DIVE fragment. Authenticating requests 
-to the **DIVE API** are done using the public key/secret key as a Bearer token in the Authorization Header. This 
-key should be defined by the **authorizationToken** parameter.
+object. ```DvsConfig.Builder``` accepts the required **Authorization Token**, **VerificationConfig**, **CaptureConfig**
+and **VerificationMode** parameters and provides additional methods for configuration of the DIVE fragment.
+Authenticating requests to the **DIVE API** are done using the public key/secret key as a Bearer token in the
+Authorization Header. This key should be defined by the **authorizationToken** parameter.
 ```
-DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig)
+DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig, verificationMode)
     .withCustomUrl(...)
     .withCustomUserAgent(...)
     .build();
@@ -210,6 +214,90 @@ getSupportFragmentManager()
 **back stack** navigation before the parent fragment manager.
 
 ### Processing result
+
+#### For Server Verification Mode
+
+---
+```DvsFragment``` provides a useful ```setFragmentResultListener``` method that allows you get the result of the verification in
+a convenient way.
+```
+DvsFragment {
+    public interface RequestCallback {
+        void onRequest(@NonNull VerificationRequest var1);
+    }
+    
+    public interface ErrorCallback {
+        void onError(@NonNull DvsException error);
+    }
+    ...
+    
+    public static void setFragmentResultListener(
+            @NonNull FragmentManager fragmentManager,
+            @NonNull LifecycleOwner lifecycleOwner,
+            @NonNull RequestCallback requestCallback,
+            @NonNull ErrorCallback errorCallback
+    ) {
+        ...
+    } 
+}
+```
+Under the hood ```setFragmentResultListener``` uses
+[ Fragment Result API](https://developer.android.com/guide/fragments/communicate#fragment-result)
+and accepts ```RequestCallback``` and  ```ErrorCallback``` callbacks to process the result of the verification.
+
+#### Example of using the DIVE fragment:
+```
+public class MainActivity extends AppCompatActivity {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity);
+
+        // Setup result listener.
+        DvsFragment.setFragmentResultListener(
+                getSupportFragmentManager(),
+                this,
+                this::showDvsRequestFragment,
+                this::showDvsErrorFragment
+        );
+        
+        // Prepare config.
+        CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**").build();
+        VerificationConfig verificationConfig = new VerificationConfig();
+        DvsConfig config = new DvsConfig.Builder(
+            "Authorization Token",
+            captureConfig,
+            verificationConfig,
+            VerificationMode.Server
+        ).build();
+        
+        // Show fragment.
+        showDvsFragment(config);
+    }
+
+    private void showDvsFragment(@NonNull DvsConfig config) {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag("DvsFragment") == null) {
+            Fragment fragment = DvsFragment.newInstance(config);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setPrimaryNavigationFragment(fragment)
+                    .replace(R.id.fragment_container_view, fragment, "DvsFragment")
+                    .addToBackStack("DvsFragment")
+                    .commit();
+        }
+    }
+
+    private void showDvsRequestFragment(@NonNull VerificationRequest result) {
+        // Process the result.
+    }
+
+    private void showDvsErrorFragment(@NonNull DvsException error) {
+        // Process the error.
+    }
+}
+```
+#### For Local Verification Mode
 
 ---
 ```DvsFragment``` provides a useful ```setFragmentResultListener``` method that allows you get the result of the verification in
@@ -258,7 +346,12 @@ public class MainActivity extends AppCompatActivity {
         // Prepare config.
         CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**").build();
         VerificationConfig verificationConfig = new VerificationConfig();
-        DvsConfig config = new DvsConfig.Builder("Authorization Token", captureConfig, verificationConfig).build();
+        DvsConfig config = new DvsConfig.Builder(
+            "Authorization Token",
+            captureConfig,
+            verificationConfig,
+            VerificationMode.Client
+        ).build();
         
         // Show fragment.
         showDvsFragment(config);

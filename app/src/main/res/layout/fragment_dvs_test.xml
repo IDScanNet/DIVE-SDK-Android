@@ -28,11 +28,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title">
+
             <EditText
                 android:id="@+id/et_license_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,11 +45,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/il_license_key">
+
             <EditText
                 android:id="@+id/et_authorization"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <GridLayout
@@ -184,14 +186,6 @@
             app:layout_constraintTop_toBottomOf="@id/ly_steps">
 
             <CheckBox
-                android:id="@+id/cb_auto_continue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:padding="8dp"
-                android:text="Auto Continue" />
-
-            <CheckBox
                 android:id="@+id/cb_enable_hints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -239,6 +233,37 @@
                 android:text="Camera" />
         </GridLayout>
 
+        <RadioGroup
+            android:id="@+id/ly_mode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#10000000"
+            android:checkedButton="@id/btn_mode_local"
+            android:orientation="horizontal"
+            android:paddingTop="40dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_sources">
+
+            <RadioButton
+                android:id="@+id/btn_mode_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Local" />
+
+            <RadioButton
+                android:id="@+id/btn_mode_server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Server" />
+        </RadioGroup>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -248,6 +273,14 @@
             app:layout_constraintStart_toStartOf="@id/ly_sources"
             app:layout_constraintTop_toTopOf="@id/ly_sources" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Mode"
+            app:layout_constraintStart_toStartOf="@id/ly_mode"
+            app:layout_constraintTop_toTopOf="@id/ly_mode" />
 
         <Button
             android:id="@+id/btn_start"
@@ -255,7 +288,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Start Test"
-            app:layout_constraintTop_toBottomOf="@+id/ly_sources"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ly_mode" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

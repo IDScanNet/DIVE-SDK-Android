@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 
 import net.idscan.components.android.dvs.DvsConfig;
+import net.idscan.components.android.dvs.VerificationMode;
 import net.idscan.components.android.dvs.capture.CaptureConfig;
 import net.idscan.components.android.dvs.common.DocumentType;
 import net.idscan.components.android.dvs.net.VerificationConfig;
@@ -76,7 +78,6 @@ public class DvsTestFragment extends Fragment {
             boolean isManualEnabled = ((CheckBox)view.findViewById(R.id.cb_manual)).isChecked();
             boolean isCameraEnabled = ((CheckBox)view.findViewById(R.id.cb_camera)).isChecked();
             boolean isHintEnabled = ((CheckBox)view.findViewById(R.id.cb_enable_hints)).isChecked();
-            boolean isAutoContinueEnabled = ((CheckBox)view.findViewById(R.id.cb_auto_continue)).isChecked();
 
             ArrayList<DocumentType> documentTypes = new ArrayList<>();
             if(((CheckBox)view.findViewById(R.id.cb_driver_license)).isChecked()) {
@@ -112,11 +113,14 @@ public class DvsTestFragment extends Fragment {
 
             CaptureConfig captureConfig = configBuilder
                     .withHints(isHintEnabled)
-                    .withAutoContinue(isAutoContinueEnabled)
                     .build();
 
             VerificationConfig verificationConfig = new VerificationConfig();
-            DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig).build();
+
+            int modeId = ((RadioGroup) view.findViewById(R.id.ly_mode)).getCheckedRadioButtonId();
+            VerificationMode mode = (modeId == R.id.btn_mode_local) ? VerificationMode.Local : VerificationMode.Server;
+
+            DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig, mode).build();
 
             prefs.edit()
                     .putString("license_key", licenseKey)
