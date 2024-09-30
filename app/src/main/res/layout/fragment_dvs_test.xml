@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="#10000000"
-            android:columnCount="4"
+            android:columnCount="2"
             android:paddingTop="40dp"
             android:rowCount="4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +191,31 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:padding="8dp"
-                android:text="Hints" />
+                android:text="Show hints" />
+
+            <CheckBox
+                android:id="@+id/cb_enable_document_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:padding="8dp"
+                android:text="Show document selector" />
+
+            <CheckBox
+                android:id="@+id/cb_auto_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:padding="8dp"
+                android:text="Auto Start" />
+
+            <CheckBox
+                android:id="@+id/cb_auto_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:padding="8dp"
+                android:text="Auto Submit" />
         </GridLayout>
 
         <TextView
