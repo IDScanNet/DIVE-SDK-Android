@@ -51,6 +51,22 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 > 
 > Default value is **False**.
 
+> ##### withDocumentTypeSelector(boolean enabled)
+> Show document type selector on the **Summary Screen**.
+>
+> Default value is **True**.
+
+> ##### withAutoStart(boolean enabled)
+> Allows you to start capture processing immediately without explicitly pressing the **Start** button on the **Summary Screen**.
+>
+> Default value is **False**.
+
+> ##### withAutoSubmit(boolean enabled)
+> Allows you to submit captured data immediately without explicitly pressing the **Submit** button on the **Summary Screen**.
+>
+> Default value is **False**.
+
+
 > ##### withDocumentType(DocumentType type)
 > Allows you to configure a capture pipeline for a specific type of document.
 >
@@ -93,6 +109,9 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 ```
 CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**")
     .withHints(true)
+    .withDocumentTypeSelector(false)
+    .withAutoStart(true)
+    .withAutoSubmit(true)
     .withDocumentType(DocumentType.DriverLicense)
         .withBack(true, true)
         .withFront(true, true)
