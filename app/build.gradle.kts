@@ -5,7 +5,7 @@ plugins {
 android {
     namespace = "net.idscan.components.android.dvs.test"
 
-    compileSdk = 33
+    compileSdk = 34
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -14,11 +14,11 @@ android {
 
     defaultConfig {
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
 
         applicationId = "net.idscan.components.android.dvs.test"
-        versionCode = 12
-        versionName = "1.6.0"
+        versionCode = 13
+        versionName = "1.7.0"
     }
 
     buildTypes {
@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("net.idscan.components.android:dvs:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("net.idscan.components.android:dvs:1.7.0")
 }

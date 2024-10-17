@@ -23,7 +23,7 @@
     ```
     dependencies {
         ...
-        implementation("net.idscan.components.android:dvs:1.5.1")
+        implementation("net.idscan.components.android:dvs:1.7.0")
         ...
     }
     ```
@@ -889,7 +889,7 @@ You can redefine these styles within the custom theme or use them in your applic
 #### Capture Screen
 
 ---
-![Summary Screen](./doc/img_capture_screen.png)
+![Capture Screen](./doc/img_capture_screen.png)
 
 1. Source Selector
 2. Camera Scan Hint
@@ -905,10 +905,38 @@ You can redefine these styles within the custom theme or use them in your applic
 | Background      | ?colorSurface        | Transparent           |
 
 ##### 2. Camera Scan Hint
-| Parameter       | Value                    |
-|-----------------|--------------------------|
-| Text Appearance | ?textAppearanceHeadline4 |
-| Text Color      | ?colorOnPrimary          |
+Style of the hint defined by the ```?dvsInstructionTextViewStyle``` theme attribute.
+```
+<style name="Theme.DVS">
+    ...
+    <item name="dvsInstructionTextViewStyle">@style/Widget.DVS.TextView.Instruction</item>
+    ...
+</style>
+```
+
+The default value ot this attribute is ```@style/Widget.DVS.TextView.Instruction``` that defined as follows:
+###### For default form factor.
+```
+<style name="Widget.DVS.TextView.Instruction" parent="Widget.MaterialComponents.TextView">
+    <item name="android:textAlignment">center</item>
+    <item name="android:textAppearance">?textAppearanceHeadline4</item>
+    <item name="android:textColor">?colorOnPrimary</item>
+</style>
+```
+
+###### For w720dp form factor.
+```
+<style name="Widget.DVS.TextView.Instruction" parent="Widget.MaterialComponents.TextView">
+    <item name="android:textAlignment">center</item>
+    <item name="android:textAppearance">?textAppearanceHeadline4</item>
+    <item name="android:textColor">?colorOnSurface</item>
+</style>
+```
+
+| Parameter       | Default                  | w720dp                   |
+|-----------------|--------------------------|--------------------------|
+| Text Appearance | ?textAppearanceHeadline4 | ?textAppearanceHeadline4 |
+| Text Color      | ?colorOnPrimary          | ?colorOnSurface          |
 
 ##### 3. Manual Upload Title
 | Parameter       | Value                    |
