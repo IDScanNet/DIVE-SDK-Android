@@ -286,6 +286,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Server" />
+
+            <RadioButton
+                android:id="@+id/btn_mode_standalone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Standalone" />
         </RadioGroup>
 
         <TextView

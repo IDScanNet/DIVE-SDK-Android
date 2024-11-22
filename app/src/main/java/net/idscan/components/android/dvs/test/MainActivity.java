@@ -31,6 +31,8 @@ import androidx.fragment.app.FragmentManager;
 import net.idscan.components.android.dvs.DvsConfig;
 import net.idscan.components.android.dvs.DvsException;
 import net.idscan.components.android.dvs.DvsFragment;
+import net.idscan.components.android.dvs.net.VerificationConfig;
+import net.idscan.components.android.dvs.net.VerificationData;
 import net.idscan.components.android.dvs.net.VerificationRequest;
 import net.idscan.components.android.dvs.net.VerificationResult;
 
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 this,
                 this::showDvsResultFragment,
                 this::showDvsRequestFragment,
+                this::showDvsVerificationDataFragment,
                 this::showDvsErrorFragment
         );
 
@@ -115,6 +118,18 @@ public class MainActivity extends AppCompatActivity {
                     .beginTransaction()
                     .replace(R.id.fragment_container_view, fragment, "DvsResultFragment")
                     .addToBackStack("DvsResultFragment")
+                    .commit();
+        }
+    }
+
+    private void showDvsVerificationDataFragment(@NonNull VerificationConfig config, @NonNull VerificationData data) {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag("DvsVerificationDataFragment") == null) {
+            Fragment fragment = DvsVerificationDataFragment.newInstance(data);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_view, fragment, "DvsVerificationDataFragment")
+                    .addToBackStack("DvsVerificationDataFragment")
                     .commit();
         }
     }

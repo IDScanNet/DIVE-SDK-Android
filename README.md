@@ -23,7 +23,7 @@
     ```
     dependencies {
         ...
-        implementation("net.idscan.components.android:dvs:1.7.0")
+        implementation("net.idscan.components.android:dvs:1.8.0")
         ...
     }
     ```
@@ -180,11 +180,13 @@ verificationConfig.isAddressCheckEnabled = true;
 ### Configuration of the Verification mode
 
 ---
-There are two options of how your application can get the verification result:
+There are three options of how your application can get the verification result:
 * ```VerificationMode.Local``` - in this mode the verification result is processed directly by your application.
-* ```VerificationMode.Server``` - in this mode the application just create a request for the verification 
+* ```VerificationMode.Server``` - in this mode the application just creates a request for the verification 
 and get back a request key that can be passed to the 3rd party server. In this case the 3rd 
 party server is responsible for requesting the verification result.
+* ```VerificationMode.Standalone``` - in this mode the DIVE SDK just collects data without any processing. In this
+case the application itself is responsible for processing the data.
 
 
 ### Configuration of the DIVE Fragment
@@ -398,7 +400,88 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+#### For Standalone Mode
 
+---
+```DvsFragment``` provides a useful ```setFragmentResultListener``` method that allows you get the collected data in
+a convenient way.
+```
+DvsFragment {
+    public interface VerificationDataCallback {
+        void onData(@NonNull VerificationConfig config, @NonNull VerificationData data);
+    }
+    
+    public interface ErrorCallback {
+        void onError(@NonNull DvsException error);
+    }
+    ...
+    
+    public static void setFragmentResultListener(
+            @NonNull FragmentManager fragmentManager,
+            @NonNull LifecycleOwner lifecycleOwner,
+            @NonNull VerificationDataCallback verificationDataCallback,
+            @NonNull ErrorCallback errorCallback
+    ) {
+        ...
+    } 
+}
+```
+Under the hood ```setFragmentResultListener``` uses
+[ Fragment Result API](https://developer.android.com/guide/fragments/communicate#fragment-result)
+and accepts ```VerificationDataCallback``` and  ```ErrorCallback``` callbacks to process the collected data.
+
+#### Example of using the DIVE fragment:
+```
+public class MainActivity extends AppCompatActivity {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity);
+
+        // Setup result listener.
+        DvsFragment.setFragmentResultListener(
+                getSupportFragmentManager(),
+                this,
+                this::showDvsVerificationDataFragment,
+                this::showDvsErrorFragment
+        );
+        
+        // Prepare config.
+        CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**").build();
+        VerificationConfig verificationConfig = new VerificationConfig();
+        DvsConfig config = new DvsConfig.Builder(
+            "Authorization Token",
+            captureConfig,
+            verificationConfig,
+            VerificationMode.Standalone
+        ).build();
+        
+        // Show fragment.
+        showDvsFragment(config);
+    }
+
+    private void showDvsFragment(@NonNull DvsConfig config) {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag("DvsFragment") == null) {
+            Fragment fragment = DvsFragment.newInstance(config);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setPrimaryNavigationFragment(fragment)
+                    .replace(R.id.fragment_container_view, fragment, "DvsFragment")
+                    .addToBackStack("DvsFragment")
+                    .commit();
+        }
+    }
+    
+    private void showDvsVerificationDataFragment(@NonNull VerificationConfig config, @NonNull VerificationData data) {
+        // Process the collected data.
+    }
+
+    private void showDvsErrorFragment(@NonNull DvsException error) {
+        // Process the error.
+    }
+}
+```
 ## Customization
 
 UI representation of the DIVE fragment is based on the Material Design 2 and can be customized using a theme. The DIVE SDK provides a

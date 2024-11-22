@@ -124,7 +124,17 @@ public class DvsTestFragment extends Fragment {
             VerificationConfig verificationConfig = new VerificationConfig();
 
             int modeId = ((RadioGroup) view.findViewById(R.id.ly_mode)).getCheckedRadioButtonId();
-            VerificationMode mode = (modeId == R.id.btn_mode_local) ? VerificationMode.Local : VerificationMode.Server;
+
+            VerificationMode mode;
+            if(modeId == R.id.btn_mode_local) {
+                mode = VerificationMode.Local;
+            } else if(modeId == R.id.btn_mode_server) {
+                mode = VerificationMode.Server;
+            } else if(modeId == R.id.btn_mode_standalone ) {
+                mode = VerificationMode.Standalone;
+            } else {
+                mode = VerificationMode.Local;
+            }
 
             DvsConfig config = new DvsConfig.Builder(authorizationToken, captureConfig, verificationConfig, mode).build();
 
