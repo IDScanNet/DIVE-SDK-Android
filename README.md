@@ -23,7 +23,7 @@
     ```
     dependencies {
         ...
-        implementation("net.idscan.components.android:dvs:1.8.0")
+        implementation("net.idscan.components.android:dvs:1.11.0")
         ...
     }
     ```

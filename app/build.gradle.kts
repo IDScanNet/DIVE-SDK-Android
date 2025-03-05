@@ -17,8 +17,8 @@ android {
         targetSdk = 34
 
         applicationId = "net.idscan.components.android.dvs.test"
-        versionCode = 14
-        versionName = "1.8.0"
+        versionCode = 15
+        versionName = "1.11.0"
     }
 
     buildTypes {
@@ -32,5 +32,5 @@ android {
 dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
-    implementation("net.idscan.components.android:dvs:1.8.0")
+    implementation("net.idscan.components.android:dvs:1.11.0")
 }
