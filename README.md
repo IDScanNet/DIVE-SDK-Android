@@ -2,17 +2,17 @@
 
 ## Setup
 
-1. ~~Add **idscan-public** maven repository:~~
+1. ~~Add **IDScan-public** maven repository:~~
 
     Starting from **v1.13.1**, DIVE artifacts are published in Maven Central. Thus, no additional
     repositories are required. So if you have previously defined ```maven { url = uri("https://www.myget.org/F/idscan-public/maven/") }```
     repository anywhere, please remove it.
 
-3. Add the following to the **module** ```build.gradle.kts``` file:
+2. Add the following to the **module** ```build.gradle.kts``` file:
     ```
     dependencies {
         ...
-        implementation("net.idscan.components.android:dvs:1.13.1")
+        implementation("net.idscan.components.android:dvs:2.0.0")
         ...
     }
     ```
@@ -35,12 +35,12 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 
 #### Configuration Methods:
 
-> ##### withHints(boolean enabled)
+> ##### withPreviewAnimations(boolean enabled)
 > Allows you to enable or disable animated hints before each capture step.
 > 
 > Default value is **False**.
 
-> ##### withDocumentTypeSelector(boolean enabled)
+> ##### withShowDocumentTypeSelector(boolean enabled)
 > Show document type selector on the **Summary Screen**.
 >
 > Default value is **True**.
@@ -50,10 +50,11 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 >
 > Default value is **False**.
 
-> ##### withAutoSubmit(boolean enabled)
-> Allows you to submit captured data immediately without explicitly pressing the **Submit** button on the **Summary Screen**.
+> ##### showSubmitBtn(boolean enabled)
+> Show the **Submit** button on the **Summary Screen**. If false, the captured data will be submitted immediately
+> without requiring the user to press the **Submit** button on the **Summary Screen**.
 >
-> Default value is **False**.
+> Default value is **True**.
 
 
 > ##### withDocumentType(DocumentType type)
@@ -82,14 +83,12 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 > > true then a user is able to use a camera for capturing the back side of the document. If **isUploadEnabled**
 > > and **isCameraEnabled** both are false then the **back side** step is skipped.
 >
-> > ##### DocumentFlowConfig withFace(boolean isUploadEnabled, boolean isCameraEnabled, boolean checkRealFace)
+> > ##### DocumentFlowConfig withFace(boolean isUploadEnabled, boolean isCameraEnabled)
 > >
 > > Allows you to configure rules for capturing **face**. If **isUploadEnabled**
 > > is true then a user is able to upload an image of the face from a file. If **isCameraEnabled** is
 > > true then a user is able to use a camera for capturing the face. If **isUploadEnabled**
-> > and **isCameraEnabled** both are false then the **face capturing** step is skipped. If **checkRealFace**
-> > and **isCameraEnabled** both are true then the **Real Face Checking** procedure is executed during the face
-> > capture.
+> > and **isCameraEnabled** both are false then the **face capturing** step is skipped.
 >
 > Each block that starts with ```withDocumentType(DocumentType type)``` should be completed with a ```.complete()``` call.
 > If there are no ```withDocumentType()``` blocks that are specified then all document types with all steps are used by default.
@@ -97,19 +96,19 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 #### Example of the capture pipeline configuration:
 ```
 CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE_KEY**")
-    .withHints(true)
-    .withDocumentTypeSelector(false)
+    .withPreviewAnimations(true)
+    .withShowDocumentTypeSelector(false)
     .withAutoStart(true)
-    .withAutoSubmit(true)
+    .showSubmitBtn(false)
     .withDocumentType(DocumentType.DriverLicense)
         .withBack(true, true)
         .withFront(true, true)
-        .withFace(true, true, true)
+        .withFace(true, true)
         .complete()
     .withDocumentType(DocumentType.Passport)
         .withBack(true, true)
         .withFront(true, true)
-        .withFace(true, true, true)
+        .withFace(true, true)
         .complete()
     .build();
 ```
@@ -181,7 +180,7 @@ case the application itself is responsible for processing the data.
 ### Configuration of the DIVE Fragment
 
 ---
-```CaptureConfig``` and ```VerificationConfig``` are used in ```DvsConfig.Builder``` for configuration the DvsFragment
+```CaptureConfig``` and ```VerificationConfig``` are used in ```DvsConfig.Builder``` for configuration the ```DvsFragment```
 object. ```DvsConfig.Builder``` accepts the required **Authorization Token**, **VerificationConfig**, **CaptureConfig**
 and **VerificationMode** parameters and provides additional methods for configuration of the DIVE fragment.
 Authenticating requests to the **DIVE API** are done using the public key/secret key as a Bearer token in the
@@ -589,7 +588,7 @@ DIVE SDK typography is based on the Material Design.
     </style>
 </resources>
 ```
-These styles can be redefined in the custom theme or it can be used in your application theme.
+These styles can be redefined in the custom theme, or it can be used in your application theme.
 
 #### Example of a redefined text style
 ```
@@ -639,7 +638,7 @@ DIVE SDK shapes are based on the Material Design.
     </style>
 </resources>
 ```
-These styles can be redefined in the custom theme or it can be used in your application theme.
+These styles can be redefined in the custom theme, or it can be used in your application theme.
 
 #### Example of redefining shapes
 ```

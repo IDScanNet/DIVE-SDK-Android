@@ -74,13 +74,13 @@ public class DvsTestFragment extends Fragment {
             boolean isFront = ((CheckBox)view.findViewById(R.id.cb_front)).isChecked();
             boolean isBack = ((CheckBox)view.findViewById(R.id.cb_back)).isChecked();
             boolean isFace = ((CheckBox)view.findViewById(R.id.cb_face)).isChecked();
-            boolean isRealFace = ((CheckBox)view.findViewById(R.id.cb_real_face)).isChecked();
             boolean isManualEnabled = ((CheckBox)view.findViewById(R.id.cb_manual)).isChecked();
             boolean isCameraEnabled = ((CheckBox)view.findViewById(R.id.cb_camera)).isChecked();
-            boolean isHintEnabled = ((CheckBox)view.findViewById(R.id.cb_enable_hints)).isChecked();
-            boolean isDocumentTypeSelectorEnabled = ((CheckBox) view.findViewById(R.id.cb_enable_document_selector)).isChecked();
+            boolean playPreviewAnimations = ((CheckBox) view.findViewById(R.id.cb_preview_animations)).isChecked();
+
+            boolean isShowDocumentTypeSelectorEnabled = ((CheckBox) view.findViewById(R.id.cb_enable_document_selector)).isChecked();
             boolean autoStart = ((CheckBox) view.findViewById(R.id.cb_auto_start)).isChecked();
-            boolean autoSubmit = ((CheckBox) view.findViewById(R.id.cb_auto_submit)).isChecked();
+            boolean showSubmitBtn = ((CheckBox) view.findViewById(R.id.cb_show_submit_btn)).isChecked();
 
             ArrayList<DocumentType> documentTypes = new ArrayList<>();
             if(((CheckBox)view.findViewById(R.id.cb_driver_license)).isChecked()) {
@@ -109,16 +109,16 @@ public class DvsTestFragment extends Fragment {
                     flowConfig.withBack(isManualEnabled, isCameraEnabled);
                 }
                 if(isFace) {
-                    flowConfig.withFace(isManualEnabled, isCameraEnabled, isRealFace);
+                    flowConfig.withFace(isManualEnabled, isCameraEnabled);
                 }
                 flowConfig.complete();
             }
 
             CaptureConfig captureConfig = configBuilder
-                    .withHints(isHintEnabled)
-                    .withDocumentTypeSelector(isDocumentTypeSelectorEnabled)
+                    .withPreviewAnimations(playPreviewAnimations)
+                    .withShowDocumentTypeSelector(isShowDocumentTypeSelectorEnabled)
                     .withAutoStart(autoStart)
-                    .withAutoSubmit(autoSubmit)
+                    .showSubmitBtn(showSubmitBtn)
                     .build();
 
             VerificationConfig verificationConfig = new VerificationConfig();
