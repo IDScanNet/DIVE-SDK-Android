@@ -49,7 +49,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DvsRequestFragment extends Fragment {
-    private static final String DEFAULT_REQUEST_AUTHORIZATION_TOKEN = "sk_e821ca3f-a12e-4f51-8e30-ed08795a88eb";
+    private static final String DEFAULT_REQUEST_AUTHORIZATION_TOKEN = "**AUTHORIZATION TOKEN**";
     private static final String REQUEST_KEY = "DvsRequestFragment";
     private static final String ARG_REQUEST = "arg_request";
     private static final String RESULT_ERROR = "error";

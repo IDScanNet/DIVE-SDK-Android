@@ -44,8 +44,8 @@ import java.util.ArrayList;
 public class DvsTestFragment extends Fragment {
     private static final String REQUEST_KEY = "DvsTestFragment";
     private static final String CONFIG_KEY = "DvsConfig";
-    private static final String DEFAULT_AUTHORIZATION_TOKEN = "sk_e821ca3f-a12e-4f51-8e30-ed08795a88eb";
-    private static final String DEFAULT_LICENSE_KEY = "eyJjb21tb25MaWNlbnNlS2V5IjoiaFFaWTRSa2MzRERlM1dOQVZMTHN4MjJxRXAwZnJwU3N2dE1YNEEwbDJseXAxZjlSSWZDaFFsSmx4b20wVTBPTm1EbFFSMHRFdDR0cTJDVG5Qd1FwNFljS1FSa3VadThURzhhQUdCd0sxK2tJWjdhblhnMVRNR1VNVDFrMnNEWi94SVpDTE02VW50Q1ozK3o0V3ZjakgydG9NMkt5SldFZjNkU291TXQ4b3NjPSJ9";
+    private static final String DEFAULT_AUTHORIZATION_TOKEN = "**AUTHORIZATION TOKEN**";
+    private static final String DEFAULT_LICENSE_KEY = "**LICENSE KEY**";
 
     interface Listener {
         void startDvsTest(@NonNull DvsConfig config);
