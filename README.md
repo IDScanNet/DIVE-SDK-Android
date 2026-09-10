@@ -62,9 +62,11 @@ CaptureConfig captureConfig = CaptureConfig.builder("**LICENSE KEY**")
 >
 > **Supported types:** 
 > * *DocumentType.DriverLicense*
+> * *DocumentType.IdentificationCard*
 > * *DocumentType.Passport*
 > * *DocumentType.PassportCard*
 > * *DocumentType.GreenCard*
+> * *DocumentType.EmploymentAuthorization*
 > * *DocumentType.InternationalId*
 >
 > ```withDocumentType(DocumentType type)``` returns ```DocumentFlowConfig``` that can be used to configure
